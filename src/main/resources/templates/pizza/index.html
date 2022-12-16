@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Pizzeria</h1>
+    <a href="/pizza/create">
+    	Add a new pizza...
+    </a>
+    <br>
+    <br>
+    <a href="/drink">Go to the drink list...</a>
+    <br>
+    <br>
+    <a href="/pizza/search">Search for a pizza</a>
+    <br>
+    <br>
+    <a href="/general/search">Mixed search</a>
+    <br>
+    <br>
+    <a href="/general/order-by-price">List of products</a>
+    <br>
+    <br>
+    <a href="/promotion">Go to promotions</a>
+    <br>
+    <br>
+    <a href="/ingredient">Go to the ingredients list</a>
+    
+    <h3 th:if="${pizzas.size()} == 0">There are no pizzas in the menu</h3>
+
+    <ul 
+    	th:unless="${pizzas.size()} == 0"
+    	>
+		<li th:each="pizza : ${pizzas}"
+    		th:object="${pizza}"
+		>
+			<a
+				th:href="@{/pizza/{id} (id = *{id})}"
+				th:text="*{name}">
+			</a>
+		 - [[*{price}]]€
+		 <a
+		 th:href="@{/pizza/edit/{id} (id = *{id})}"
+		 >Edit</a>
+		 <a
+		 th:href="@{/pizza/delete/{id} (id = *{id})}"
+		 >Delete</a>
+		</li>
+	</ul>
+	<script src="script.js"></script>
+</body>
+</html>

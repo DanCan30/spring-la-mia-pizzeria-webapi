@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body th:object="${pizza}">
+    <h1>Pizzeria</h1>
+	<h2>
+		[[*{name}]]
+	</h2>
+	<h4>
+		[[*{price}]]€
+	</h4>
+	<p>
+		[[*{description}]]
+	</p>
+	
+	<div th:if="${promotion != null}">
+		<h3>
+			Active promotion: [[${promotion.name}]] 
+			FROM [[${promotion.getFormattedDate(promotion.getStartingDate())}]] UNTIL [[${promotion.getFormattedDate(promotion.getEndingDate())}]] 
+		</h3>
+		
+	</div>
+	
+	<div th:if="${ingredients.size() > 0}">
+		
+		<h3>Ingredients: </h3>
+		
+		<ul>
+			<li 
+				th:each="ingredient : ${ingredients}"
+				th:object="${ingredient}"
+				th:text="*{name}"
+			></li>
+		</ul>
+		
+	</div>
+	
+	<a href="/">
+		Go back
+	</a>
+</body>
+</html>

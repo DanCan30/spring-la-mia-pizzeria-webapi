@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<form
+		th:fragment="crud-form(action, method, submitType, selectElement, checkboxElement)"
+		th:action="${action}"
+		th:method="${method}"
+		>
+		<input type="number" name="id" th:field="*{id}" style="display: none">
+		<label for="name">Name</label>
+		<input type="text" name="name" th:field="*{name}"><br>
+		
+		<label for="description">Description</label>
+		<textarea name="description" style="resize: none"  th:field="*{description}"></textarea><br>
+		
+		<label for="price">Price</label>
+		<input type="number" name="price" th:field="*{price}"><br>
+
+		<div 
+			th:if="${selectElement != null}">
+			<select name="promotion"
+				th:object="${selectElement}"
+			>
+			<option th:value="null" th:field="${pizza.promotion}">No promotion</option>
+			<option 
+				th:each="element : ${selectElement}"
+				th:object="${element}"
+				
+				th:value="*{id}"
+				th:field="${pizza.promotion}"
+				th:text="*{name}"
+			></option>
+			
+			</select>
+		</div>
+		
+		<div th:if="${checkboxElement != null}">
+			<div
+			 	th:each="element : ${checkboxElement}"
+			 	th:object="${element}"
+			 >
+				<input 
+					type="checkbox"
+					name="ingredients"
+					
+					th:value="*{id}"
+					th:field="${pizza.ingredients}"
+				>
+				<label th:text="*{name}"></label>
+			
+			</div>
+		</div>
+		
+		<button type="submit" th:text="${submitType}"></button>
+	</form>
+	
+	<form
+		th:fragment="promotion-form(action, method, submitType, checkboxElement)"
+		th:action="${action}"
+		th:method="${method}"
+		>
+		<input type="number" name="id" th:field="*{id}" style="display: none">
+		<label for="name">Name</label>
+		<input type="text" name="name" th:field="*{name}"><br>
+		
+		<label for="starting-date">Starting date</label>
+		<input type="date" name="startingDate" th:field="*{startingDate}"><br>
+		
+		<label for="ending-date">Ending date</label>
+		<input type="date" name="endingDate" th:field="*{endingDate}"><br>
+		
+		<div
+		 	th:each="element : ${checkboxElement}"
+		 	th:object="${element}"
+		 >
+			<input 
+				type="checkbox"
+				name="pizzas"
+				
+				th:value="*{id}"
+				th:field="${promotion.pizzas}"
+			>
+			<label th:text="*{name}"></label>
+			
+		</div>
+		
+		<button type="submit" th:text="${submitType}"></button>
+	</form>
+	
+	<form
+		th:fragment="ingredient-form(action, method, submitType, checkboxElement)"
+		th:action="${action}"
+		th:method="${method}"
+		>
+		<input type="number" name="id" th:field="*{id}" style="display: none" th:value="*{id}">
+		<label for="name">Name</label>
+		<input type="text" name="name" th:field="*{name}"><br>
+		
+		<div
+		 	th:each="element : ${checkboxElement}"
+		 	th:object="${element}"
+		 >
+			<input 
+				type="checkbox"
+				name="pizzas"
+				
+				th:value="*{id}"
+				th:field="${ingredient.pizzas}"
+			>
+			<label th:text="*{name}"></label>
+			
+		</div>
+		
+		<button type="submit" th:text="${submitType}"></button>
+	</form>
+	
+	<form 
+		th:fragment="search(obj, action)"
+		method="GET" 
+		th:action="${action}">
+		<label for="query">Name: </label>
+		<input type="text" id="query" name="query" th:value="${query}">
+		<input type="submit" value="Search">
+	</form>
+	
+	<div
+		th:fragment="error()"
+		>
+		     <h3 th:if="${errors}">Errors: </h3>
+    
+    <ul>
+		<li
+    		th:each="error : ${errors}"
+    		th:object="${error}"
+    		th:text="|*{defaultMessage}|"
+    	>
+    	</li>
+	</ul>
+	</div>
+</body>
+</html>

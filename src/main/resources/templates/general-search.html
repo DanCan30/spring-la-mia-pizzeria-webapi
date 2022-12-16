@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	
+	<h2>Search a product</h2>		
+	<form method="GET" action="/general/search">
+		<label for="query">Name: </label>
+		<input type="text" id="query" name="query" th:value="${query}">
+		<input type="submit" value="Search">
+	</form>
+	
+	<h4 th:if="${query} != null AND ${drinks.size()} == 0">No drinks found</h4>
+	<div th:unless="${query} != null AND ${drinks.size()} == 0">
+		
+		<h4>Drinks found: </h4>
+
+		<ul>
+			<li th:each="drink : ${drinks}"
+	    		th:object="${drink}"
+			>
+				<a
+					th:href="@{/drink/{id} (id = *{id})}"
+					th:text="*{name}">
+				</a>
+			 - [[*{price}]]€
+			 <a
+			 th:href="@{/drink/edit/{id} (id = *{id})}"
+			 >Edit</a>
+			 <a
+			 th:href="@{/drink/delete/{id} (id = *{id})}"
+			 >Delete</a>
+			</li>
+		</ul>
+	</div>
+	<h4 th:if="${query} != null AND ${pizzas.size()} == 0">No pizzas found</h4>
+	
+	<div th:unless="${query} != null AND ${pizzas.size()} == 0">
+		
+		<h4>Pizzas found: </h4>
+		
+		<ul>
+			<li th:each="pizza : ${pizzas}"
+	    		th:object="${pizza}"
+			>
+				<a
+					th:href="@{/pizza/{id} (id = *{id})}"
+					th:text="*{name}">
+				</a>
+			 - [[*{price}]]€
+			 <a
+			 th:href="@{/pizza/edit/{id} (id = *{id})}"
+			 >Edit</a>
+			 <a
+			 th:href="@{/pizza/delete/{id} (id = *{id})}"
+			 >Delete</a>
+			</li>
+		</ul>
+		
+		<a href="/">
+			Go back
+		</a>
+	
+	</div>
+</body>
+</html>

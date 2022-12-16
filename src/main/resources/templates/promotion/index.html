@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Promotions</h1>
+    <a href="/promotion/create">
+    	Add a new promotion...
+    </a>
+    <br>
+    <br>
+    <a href="/">
+    	Go back...
+    </a>
+    
+    <h3 th:if="${promotions.size()} == 0">There are no active promotions</h3>
+
+    <ul 
+    	th:unless="${promotions.size()} == 0"
+    	>
+		<li th:each="promotion : ${promotions}"
+    		th:object="${promotion}"
+		>
+			<a
+				th:href="@{/promotion/{id} (id = *{id})}"
+				th:text="*{name}">
+			</a> - 
+			<a
+			 th:href="@{/promotion/edit/{id} (id = *{id})}"
+			 >Edit</a>
+			 <a
+			 th:href="@{/promotion/delete/{id} (id = *{id})}"
+			 >Delete</a>
+
+		</li>
+	</ul>
+</body>
+</html>

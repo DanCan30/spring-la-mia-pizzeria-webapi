@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ingredients</h1>
+    <a href="/ingredient/create">
+    	Add a new ingredient...
+    </a>
+    <br>
+    <br>
+    <a href="/">
+    	Back to pizzeria...
+    </a>
+    
+    <h3 th:if="${ingredients.size()} == 0">There are no ingredients</h3>
+
+    <ul 
+    	th:unless="${ingredients.size()} == 0"
+    	>
+		<li th:each="ingredient : ${ingredients}"
+    		th:object="${ingredient}"
+		>
+			<a
+				th:href="@{/ingredient/{id} (id = *{id})}"
+				th:text="*{name}">
+			</a> - 
+			<a
+			 th:href="@{/ingredient/edit/{id} (id = *{id})}"
+			 >Edit</a>
+			 <a
+			 th:href="@{/ingredient/delete/{id} (id = *{id})}"
+			 >Delete</a>
+
+		</li>
+	</ul>
+</body>
+</html>

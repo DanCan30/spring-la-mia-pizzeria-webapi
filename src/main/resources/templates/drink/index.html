@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Drink List</h1>
+    <a href="/drink/create">
+    	Add a new Drink...
+    </a>
+    <br>
+    <br>
+    <a href="/">Go to the menu...</a>
+    <br>
+    <br>
+    <a href="/drink/search">Search for a drink</a>
+    <br>
+    <br>
+    <a href="/general/search">Mixed search</a>
+    <br>
+    <br>
+    <a href="/general/order-by-price">List of products</a>
+    
+    <h3 th:if="${drinks.size()} == 0">There are no drinks in the menu</h3>
+    
+    <ul 
+    	th:unless="${drinks.size()} == 0"
+    	>
+		<li th:each="drink : ${drinks}"
+    		th:object="${drink}"
+		>
+			<a
+				th:href="@{/drink/{id} (id = *{id})}"
+				th:text="*{name}">
+			</a>
+		 - [[*{price}]]€
+		 <a
+		 th:href="@{/drink/edit/{id} (id = *{id})}"
+		 >Edit</a>
+		 <a
+		 th:href="@{/drink/delete/{id} (id = *{id})}"
+		 >Delete</a>
+		</li>
+	</ul>
+    
+</body>
+</html>

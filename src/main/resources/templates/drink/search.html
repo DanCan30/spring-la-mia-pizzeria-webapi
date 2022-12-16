@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	
+	<h2>Search for a drink</h2>	
+	
+	<div th:insert="fragments :: search(${drinks}, '/drink/search')"></div>
+	
+	<h4 th:if="${query} != null AND ${drinks.size()} == 0">No drinks found</h4>
+	
+	<ul th:unless="${query} != null AND ${drinks.size()} == 0">
+		<li th:each="drink : ${drinks}"
+    		th:object="${drink}"
+		>
+			<a
+				th:href="@{/drink/{id} (id = *{id})}"
+				th:text="*{name}">
+			</a>
+		 - [[*{price}]]€
+		 <a
+		 th:href="@{/drink/edit/{id} (id = *{id})}"
+		 >Edit</a>
+		 <a
+		 th:href="@{/drink/delete/{id} (id = *{id})}"
+		 >Delete</a>
+		</li>
+	</ul>
+	
+</body>
+</html>
