@@ -77,10 +77,10 @@ public class SpringLaMiaPizzeriaWebapiApplication implements CommandLineRunner {
 		ingredientService.save(mushrooms);
 		ingredientService.save(cheese);		
 		
-		Pizza p1 = new Pizza("Pizza1", "Margherita", 6, null);
-		Pizza p2 = new Pizza("Pizza2", "Diavola", 8, pr2);
-		Pizza p3 = new Pizza("Pizza3", "Rossa", 5, pr1);
-		Pizza p4 = new Pizza("Pizza4", "Capricciosa", 10, null);
+		Pizza p1 = new Pizza("Pizza1", "Margherita", 6, null, tomato, mozzarella);
+		Pizza p2 = new Pizza("Pizza2", "Diavola", 8, pr2, tomato, mozzarella, pepperoni);
+		Pizza p3 = new Pizza("Pizza3", "Rossa", 5, pr1, tomato);
+		Pizza p4 = new Pizza("Pizza4", "Capricciosa", 10, null, tomato, ham, pepperoni, olives, mushrooms);
 
 		pizzaService.save(p1);
 		pizzaService.save(p2);
