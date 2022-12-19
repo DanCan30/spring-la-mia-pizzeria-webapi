@@ -58,4 +58,9 @@ public class PizzaApiController {
 		pS.delete(selectedPizza);
 		
 	}
+	
+	@GetMapping("/search/{query}")
+	public List<Pizza> searchPizzasByName(@PathVariable("query") String query) {
+		return pS.findByName(query);
+	}
 }

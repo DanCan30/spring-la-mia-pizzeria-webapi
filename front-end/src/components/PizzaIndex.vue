@@ -17,6 +17,8 @@
                 <button @click="createFormVisible = !createFormVisible, newPizza = {}">CANCEL</button>
             </form>
         </div>
+        <label for="search">Search</label>
+        <input type="text" name="search" @keyup.enter="searchPizza" v-model="searchQuery">
         <ul>
             <li v-for="pizza in pizzas" :key="pizza.id">
                 <div v-if="editIndex != pizza.id">
@@ -72,6 +74,7 @@ export default {
             editIndex: EDIT_DEFAULT,
             createFormVisible: false,
             showIngredients: false,
+            searchQuery: "",
         }
     },
 
@@ -137,6 +140,17 @@ export default {
                 const ingredients = result.data;
                 this.findPizzaById(id).ingredients = ingredients;
             })
+        },
+        searchPizza() {
+
+
+            if (this.searchQuery.trim() == "")
+                this.getAllPizzas()
+            else
+                axios.get(API_URL + "pizza/search/" + this.searchQuery)
+                .then(result => {
+                        this.pizzas = result.data;
+                }) 
         }
 
     },
